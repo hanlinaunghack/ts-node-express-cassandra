@@ -1,0 +1,46 @@
+version: "2"
+services:
+  ts-node-express:
+    build: .
+    command: "sh -c 'sleep 30s && npm start'"
+    environment:
+      - TS_NODE_CACHE_DIRECTORY=/tmp/ts-node
+      - CASSANDRA_CONTACT_POINTS=cassandra-1,cassandra-2
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/opt/app
+    depends_on:
+      - cassandra-1
+      - cassandra-2
+    links:
+      - cassandra-1
+      - cassandra-2
+  cassandra-1:
+    hostname: cassandra-1
+    image: cassandra:3
+    ports:
+      - 7000:7000
+      - 7001:7001
+      - 9042:9042
+      - 9142:9142
+      - 7199:7199
+      - 9160:9160
+    environment:
+      - CASSANDRA_CLUSTER_NAME=ts-node-express-cassandra
+  cassandra-2:
+    hostname: cassandra-2
+    image: cassandra:3
+    expose:
+      - 7000
+      - 7001
+      - 9042
+      - 9142
+      - 7199
+      - 9160
+    environment:
+      - CASSANDRA_CLUSTER_NAME=ts-node-express-cassandra
+      - CASSANDRA_SEEDS=cassandra-1
+    links:
+      - cassandra-1
+      

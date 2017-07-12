@@ -1,0 +1,27 @@
+{
+  "name": "ts-node-express",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "if [[ '$NODE_ENV' == 'production' ]]; then ts-node src/app.ts; else nodemon; fi",
+    "test": "mocha --compilers ts:ts-node/register test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/cassandra-driver": "^0.8.10",
+    "@types/express": "ts2.3",
+    "@types/lodash": "ts2.3",
+    "cassandra-driver": "^3.2.2",
+    "express": "^4.15.3",
+    "lodash": "^4.17.4",
+    "ts-node": "^3.0.4",
+    "typescript": "^2.3.4"
+  },
+  "devDependencies": {
+    "mocha": "^3.4.2",
+    "nodemon": "^1.11.0"
+  }
+}
